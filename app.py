@@ -23,6 +23,9 @@ def token_required(f):
 def unprotected():
     return jsonify({'message' : 'Каждый видит это сообщение'})
 
+
+
+
 @app.route('/protected')
 @token_required
 def protected():
