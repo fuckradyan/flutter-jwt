@@ -12,13 +12,15 @@ def token_required(f):
     def decorated(*args, **kwargs):
         token = request.args.get('token')
         if not token:
-            return jsonify({'message' : 'TOKEN IN MISSING'}), 403
+            return jsonify({'message' : 'TOKEN IS MISSING'}), 403
         try:
             data = jwt.decode(token, app.config['SECRET_KEY'])
         except:
             return jsonify({'message' : 'INVALID TOKEN'}), 403
         return f(*args, **kwargs)
     return decorated
+
+
 @app.route('/unprotected')
 def unprotected():
     return jsonify({'message' : 'Каждый видит это сообщение'})
@@ -36,12 +38,15 @@ def protected():
 
 @app.route('/login', methods=['POST'])
 def login():
-    auth = request.authorization
+    data = request.get_json()
+    print(data)
+    # auth = request.authorization
 
-    if auth and auth.password == 'admin':
-        token = jwt.encode({'user' : auth.username, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=40)}, app.config['SECRET_KEY'])
-        return jsonify({'token' : token.decode('UTF-8')})    
-    return make_response('Could not verify!',401, {'WWW-Authenticate' : 'Basic realm="Login Required"'})
+    # if auth and auth.password == 'admin':
+    #     token = jwt.encode({'user' : auth.username, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=40)}, app.config['SECRET_KEY'])
+    #     return jsonify({'token' : token.decode('UTF-8')})    
+    # return make_response('Could not verify!',401, {'WWW-Authenticate' : 'Basic realm="Login Required"'})
+    return data
 
 
 if __name__ == '__main__':
