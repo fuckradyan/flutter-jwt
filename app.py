@@ -34,7 +34,7 @@ def protected():
     return jsonify({'message' : 'Только аутентифицированные пользователи видят это сообщение.','time' : datetime.datetime.now(), 'img' :  str(message_string.decode('utf-8'))})
 
 
-@app.route('/login')
+@app.route('/login', methods=['POST'])
 def login():
     auth = request.authorization
 
