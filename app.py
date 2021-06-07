@@ -41,7 +41,7 @@ def login():
     data = request.get_json()
     print(data)
     # auth = request.authorization
-    print(data.username)
+    print(data['username'])
     # if auth and auth.password == 'admin':
     #     token = jwt.encode({'user' : auth.username, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=40)}, app.config['SECRET_KEY'])
     #     return jsonify({'token' : token.decode('UTF-8')})    
