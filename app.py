@@ -39,15 +39,11 @@ def protected():
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    print(data)
-    # auth = request.authorization
-    print(data['username'])
-    # if auth and auth.password == 'admin':
-    #     token = jwt.encode({'user' : auth.username, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=40)}, app.config['SECRET_KEY'])
-    #     return jsonify({'token' : token.decode('UTF-8')})    
-    # return make_response('Could not verify!',401, {'WWW-Authenticate' : 'Basic realm="Login Required"'})
-
-    return jsonify({data})
+    # auth = request.authorization    
+    if data['username'] == 'fuckradyan' and data['password'] == 'poop123':
+        token = jwt.encode({'user' : data['username'], 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=40)}, app.config['SECRET_KEY'])
+        return jsonify({'token' : token.decode('UTF-8')})    
+    return make_response('Could not verify!',401, {'WWW-Authenticate' : 'Basic realm="Login Required"'})
 
 
 if __name__ == '__main__':
